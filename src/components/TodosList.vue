@@ -3,27 +3,28 @@
     <h3>Todos</h3>
     <div class="legend">
       <span>Double click to mark as complete</span>
-      <span> <span class="incomplete-box"></span> = Incomplete </span>
       <span> <span class="complete-box"></span> = Complete </span>
+      <span> <span class="incomplete-box"></span> = Incomplete </span>
     </div>
-    <!-- <div class="counter">
-      {{ $store.state.counter }}
-    </div>
-    <div class="buttons">
-      <button @click="$store.commit('decreaseCounter')">-</button>
-      <button @click="$store.commit('increaseCounter')">+</button>
-    </div> -->
     <div class="todos">
       <div
-        @dblclick="onDblClick(todo)"
+        @click="$store.dispatch('updateTodo', { id: todo.id, title: todo.title, completed: !todo.completed })"
         v-for="todo in $store.state.todos"
         :key="todo.id"
         class="todo"
-        v-bind:class="{ 'is-complete': todo.completed }"
+        v-bind:class="{ 'is-not-complete': !todo.completed }"
       >
         {{ todo.title }}
-        <!-- <i @click="deleteTodo(todo.id)" class="fas fa-trash-alt"></i> -->
-        <i @click="deleteTodo(todo.id)" class="fas fa-trash-alt"></i>
+        <button
+          @click="$store.dispatch('deleteTodo', todo.id)"
+          class="button"
+        >
+          <font-awesome-icon 
+            icon="fa-solid fa-trash" 
+            class="icon"
+          />
+        </button>
+        
       </div>
     </div>
   </div>
@@ -32,7 +33,6 @@
 <script>
 export default {
   name: "TodosList",
-
   beforeMount() {
     this.$store.dispatch("fetchTodos");
   },
@@ -56,10 +56,20 @@ export default {
   cursor: pointer;
 }
 
-i {
+.button {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 8px;
+  right: 8px;
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.icon {
   color: #fff;
   cursor: pointer;
 }
@@ -74,17 +84,17 @@ i {
   display: inline-block;
   width: 10px;
   height: 10px;
-  background: #35495e;
+  background: #41b883;
 }
 
 .incomplete-box {
   display: inline-block;
   width: 10px;
   height: 10px;
-  background: #41b883;
+  background: #35495e;
 }
 
-.is-complete {
+.is-not-complete {
   background: #35495e;
   color: #fff;
 }

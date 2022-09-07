@@ -29,7 +29,7 @@ export default {
             return this.$store.state.newTodo
         },
         set(newValue) {
-            this.$store.commit('setTodo', newValue)
+            this.$store.dispatch('setTodo', newValue)
         }
     }
   },
