@@ -25,12 +25,12 @@ export default {
   },
   computed: {
     newTodo: {
-        get() {
-            return this.$store.state.newTodo
-        },
-        set(newValue) {
-            this.$store.dispatch('setTodo', newValue)
-        }
+      get() {
+        return this.$store.state.newTodo
+      },
+      set(newValue) {
+        this.$store.dispatch('setTodo', newValue)
+      }
     }
   },
 };
