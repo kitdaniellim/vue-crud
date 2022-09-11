@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <h3>Add Todo</h3>
+  <div class="container">
+    <h1 class="display-2">My Todo List</h1>
     <div class="add">
-      <form @submit="onSubmit">
+      <form class="d-flex" @submit="onSubmit">
         <input 
-            type="text" 
-            v-model="newTodo" 
-            placeholder="Add Todo..." 
+          class="form-control me-3"
+          type="text" 
+          v-model="newTodo" 
+          placeholder="Add Todo..." 
         />
-        <input type="submit" value="Submit">
+        <input type="submit" class="btn btn-success" value="Submit">
       </form>
     </div>
   </div>
@@ -37,9 +38,6 @@ export default {
 </script>
 
 <style scoped>
-form {
-  display: flex;
-}
 input[type="text"] {
   flex: 10;
   padding: 10px;

@@ -1,7 +1,9 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <AddTodo/>
-  <TodosList/>
+  <div class="container">
+    <AddTodo/>
+    <TodosList/>
+  </div>
 </template>
 
 <script>

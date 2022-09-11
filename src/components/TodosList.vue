@@ -1,12 +1,11 @@
 <template>
-  <div>
-    <h3>Todos</h3>
-    <div class="legend">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-evenly container-fluid m-3">
       <span>Double click to mark as complete</span>
       <span> <span class="complete-box"></span> = Complete </span>
       <span> <span class="incomplete-box"></span> = Incomplete </span>
     </div>
-    <div class="todos">
+    <div class="mb-5">
       <div
         @click="$store.dispatch('updateTodo', { id: todo.id, title: todo.title, completed: !todo.completed })"
         v-for="todo in $store.state.todos"
@@ -17,7 +16,7 @@
         {{ todo.title }}
         <button
           @click="$store.dispatch('deleteTodo', todo.id)"
-          class="button"
+          class="btn btn-dark position-absolute top-50 end-0 translate-middle-y"
         >
           <font-awesome-icon 
             icon="fa-solid fa-trash" 
@@ -56,19 +55,6 @@ export default {
   cursor: pointer;
 }
 
-.button {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-}
-
 .icon {
   color: #fff;
   cursor: pointer;
@@ -97,11 +83,5 @@ export default {
 .is-not-complete {
   background: #35495e;
   color: #fff;
-}
-
-@media (max-width: 500px) {
-  .todos {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

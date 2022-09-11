@@ -31,7 +31,7 @@ export default createStore({
     actions: {
         fetchTodos({ commit }) {
             console.log('fetching todos...')
-            axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+            axios.get('https://jsonplaceholder.typicode.com/todos?_limit=20')
                 .then(response => {
                     commit('fetchTodos', response.data)
                 });
