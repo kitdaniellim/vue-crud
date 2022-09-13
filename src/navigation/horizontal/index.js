@@ -6,7 +6,7 @@ export default [
       {
         title: 'Todos',
         route: 'todos',
-        icon: 'HomeIcon',
+        icon: 'CheckSquareIcon',
       },
       {
         title: 'About Us',

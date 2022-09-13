@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios';
 
-
 // Modules
 import app from './app'
 import appConfig from './app-config'
@@ -40,6 +39,7 @@ export default new Vuex.Store({
     },
     deleteTodo(state, id) {
         state.todos = state.todos.filter(todo => todo.id !== id);
+        console.log("todo is deleted")
     },
   },
   actions: {
@@ -57,6 +57,7 @@ export default new Vuex.Store({
         axios.post('https://jsonplaceholder.typicode.com/todos', {userID: 1, title, completed: false})
             .then(response => {
                 commit('addTodo', response.data)
+                commit('setTodo', '')
             });
     },
     updateTodo({ commit }, updTodo) {
