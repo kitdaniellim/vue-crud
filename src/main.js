@@ -1,19 +1,35 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import store from './store';
-import "bootstrap/dist/css/bootstrap.css";
+import Vue from 'vue'
+import { ToastPlugin, ModalPlugin } from 'bootstrap-vue'
+import VueCompositionAPI from '@vue/composition-api'
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import router from './router'
+import store from './store'
+import App from './App.vue'
 
-library.add(faTrash)
+// Global Components
+import './global-components'
 
-const app = createApp(App);
+// 3rd party plugins
+import '@/libs/portal-vue'
+import '@/libs/toastification'
 
-app.use(store);
-app.component('font-awesome-icon', FontAwesomeIcon)
-app.mount('#app');
+// BSV Plugin Registration
+Vue.use(ToastPlugin)
+Vue.use(ModalPlugin)
 
-import "bootstrap/dist/js/bootstrap.js";
+// Composition API
+Vue.use(VueCompositionAPI)
 
+// import core styles
+require('@core/scss/core.scss')
+
+// import assets styles
+require('@/assets/scss/style.scss')
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  store,
+  render: h => h(App),
+}).$mount('#app')
