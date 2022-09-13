@@ -1,24 +1,9 @@
 # vue-crud
+Todo App using Vuexy, Axios, and jsonplaceholder with CRUD
 
-## Project setup
-```
-npm install
-```
+## To run application
 
-### Compiles and hot-reloads for development
-```
 npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Todo App Screenshots
+![image](https://user-images.githubusercontent.com/60454465/189863905-adcfb95f-0f28-4fd5-a7bf-ea3d700116c7.png)
