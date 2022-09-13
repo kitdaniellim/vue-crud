@@ -62,21 +62,21 @@
 
       <!-- Todo List -->
       <vue-perfect-scrollbar
-        :settings="{ maxScrollbarLength: 150, }"
+        :settings="perfectScrollbarSettings"
         class="todo-task-list-wrapper list-group scroll-area"
       >
         <draggable
-          v-model="tasks"
+          v-model="$store.state.todos"
           handle=".draggable-task-handle"
           tag="ul"
           class="todo-task-list media-list"
         >
           <li
-            v-for="task in tasks"
-            :key="task.id"
+            v-for="todo in $store.state.todos"
+            :key="todo.id"
             class="todo-item"
-            :class="{ completed: task.isCompleted }"
-            @click="handleTaskClick(task)"
+            :class="{ completed: todo.completed }"
+            @click="$store.dispatch('updateTodo', { id: todo.id, title: todo.title, completed: !todo.completed })"
           >
             <feather-icon
               icon="MoreVerticalIcon"
@@ -86,11 +86,11 @@
               <div class="todo-title-area">
                 <div class="title-wrapper">
                   <b-form-checkbox
-                    :checked="task.isCompleted"
+                    :checked="todo.completed"
                     @click.native.stop
-                    @change="updateTaskIsCompleted(task)"
+                    @change="$store.dispatch('updateTodo', { id: todo.id, title: todo.title, completed: !todo.completed })"
                   />
-                  <span class="todo-title">{{ task.title }}</span>
+                  <span class="todo-title">{{ todo.title }}</span>
                 </div>
               </div>
               <div class="todo-item-action">
@@ -101,7 +101,7 @@
             </div>
           </li>
         </draggable>
-        <div class="no-results" :class="{ show: !tasks.length }">
+        <div class="no-results" :class="{ show: !$store.state.todos.length }">
           <h5>No Items Found</h5>
         </div>
       </vue-perfect-scrollbar>
@@ -111,7 +111,7 @@
 
 <script>
 // import store from "@/store";
-// import { ref, watch, computed, onUnmounted } from "@vue/composition-api";
+import { watch, computed } from "@vue/composition-api";
 import {
   BFormInput,
   BInputGroup,
@@ -127,9 +127,9 @@ import {
 } from "bootstrap-vue";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 import draggable from "vuedraggable";
-// import { formatDate, avatarText } from "@core/utils/filter";
-// import { useRouter } from "@core/utils/utils";
-// import { useResponsiveAppLeftSidebarVisibility } from "@core/comp-functions/ui/app";
+import { formatDate, avatarText } from "@core/utils/filter";
+import { useRouter } from "@core/utils/utils";
+import { useResponsiveAppLeftSidebarVisibility } from "@core/comp-functions/ui/app";
 
 export default {
   components: {
@@ -148,32 +148,46 @@ export default {
     BLink,
   },
 
+  beforeMount() {
+    this.$store.dispatch("fetchTodos");
+  },
+
   setup() {
-    const tasks = [];
+    const { mqShallShowLeftSidebar } = useResponsiveAppLeftSidebarVisibility()
+
+    const perfectScrollbarSettings = {
+      maxScrollbarLength: 150,
+    }
 
     return {
-      tasks
-    }
-  }
+      perfectScrollbarSettings,
 
+      // Filters
+      formatDate,
+      avatarText,
+
+      // Left Sidebar Responsive
+      mqShallShowLeftSidebar,
+    }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.draggable-task-handle {
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  visibility: hidden;
-  cursor: move;
+  .draggable-task-handle {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    visibility: hidden;
+    cursor: move;
 
-  .todo-task-list .todo-item:hover & {
-    visibility: visible;
+    .todo-task-list .todo-item:hover & {
+      visibility: visible;
+    }
   }
-}
 </style>
 
 <style lang="scss">
-@import "~@core/scss/base/pages/app-todo.scss";
+  @import "~@core/scss/base/pages/app-todo.scss";
 </style>
